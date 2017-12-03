@@ -1,6 +1,7 @@
 import pygame
 from pygame import Color
 from pygame import draw
+from scipy.interpolate import interp1d
 
 class Puck:
 
@@ -9,8 +10,11 @@ class Puck:
 	def __init__(self, screen_width, screen_height, speed, side_length):
 
 		# set puck to middle of the screen when program starts
+		self.respawn_x = screen_width/2 - side_length/2
+		self.respawn_y = screen_height/2 - side_length/2
 		self.x = screen_width/2 - side_length/2
 		self.y = screen_height/2 - side_length/2
+		
 
 		self.x_speed = speed
 		self.y_speed = speed * 0.2
@@ -31,6 +35,14 @@ class Puck:
 		# puck changes direction when it collides with top or bottom wall
 		if self.y < self.min_y or self.y > self.max_y:
 			self.change_y_direction()
+		# puck respawns to centre if puck goes goes past left or right wall
+		if self.x < self.min_x or self.x > self.max_x:
+			self.x = self.respawn_x
+			self.y = self.respawn_y
+			self.change_x_direction()
+
+
+
 
 	# update puck position and display on screen
 	def show(self, screen):
@@ -44,12 +56,15 @@ class Puck:
 			and (self.x + self.side_length)> paddle.x 
 			and self.y < (paddle.y + paddle.length) 
 			and (self.y + self.side_length) > paddle.y):
+		
+				translate = interp1d([0, paddle.length], [30, 150])
+				# translate(self.y - paddle.y)
 				return True
 		
 		return False
 
 	# change direction when puck collides with paddle
-	def change_x_direction(self, direction):
+	def change_x_direction(self, direction=None):
 		if direction == 'left':
 			if self.x_speed > 0:
 				self.x_speed *= -1
@@ -57,7 +72,7 @@ class Puck:
 			if self.x_speed < 0:
 				self.x_speed *= -1
 		else:
-			print("Error: invalid direction specified.")
+			self.x_speed *= -1
 
 
 
