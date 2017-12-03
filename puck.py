@@ -42,14 +42,14 @@ class Puck:
 		# check whether puck collides with paddle
 		if (self.x < (paddle.x + paddle.width) 
 			and (self.x + self.side_length)> paddle.x 
-			and self.y > (paddle.y + paddle.length) 
-			and (self.y + self.side_length) < paddle.y):
+			and self.y < (paddle.y + paddle.length) 
+			and (self.y + self.side_length) > paddle.y):
 				return True
 		
 		return False
 
 	def change_x_direction(self):
-		x_speed = x_speed * -1
+		self.x_speed = self.x_speed * -1
 
 	def change_y_direction(self):
 		y_speed = y_speed * -1
