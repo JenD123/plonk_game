@@ -49,6 +49,6 @@ while True:
 	# puck changes direction if it collides with left or right paddle
 	if puck.collides_with(left_paddle) or puck.collides_with(right_paddle):
 		puck.change_x_direction()
-		sound.play
+		sound.play()
 
 
