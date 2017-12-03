@@ -28,6 +28,7 @@ class Paddle:
 		if self.y > self.max_y:
 			self.y = self.max_y
 
+	
 
 	# display paddle on screen
 	def show(self, screen):

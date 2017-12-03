@@ -32,11 +32,21 @@ sound = mixer.Sound('boop_sound.ogg')
 while True:
 	clock.tick(60)
 	
-	# check events (downkey pressed, upkey pressed)
+	# check events to move paddle up or down (downkey pressed, upkey pressed)
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
 
+	# bot player controls
+	puck_centre = puck.y + puck.side_length/2
+	paddle_centre = left_paddle.y + left_paddle.length/2
+
+	if puck_centre > paddle_centre:
+		left_paddle.move_down()
+	if puck_centre < paddle_centre:
+		left_paddle.move_up()
+
+	# human player controls
 	keys = pygame.key.get_pressed()
 	if keys[pygame.K_DOWN]:
 		right_paddle.move_down()
@@ -53,8 +63,11 @@ while True:
 	display.flip()
 
 	# puck changes direction if it collides with left or right paddle
-	if puck.collides_with(left_paddle) or puck.collides_with(right_paddle):
-		puck.change_x_direction()
+	if puck.collides_with(left_paddle):
+		puck.change_x_direction('right')
+		sound.play()
+	elif puck.collides_with(right_paddle):
+		puck.change_x_direction('left')
 		sound.play()
 
 

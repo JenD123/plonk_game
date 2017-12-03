@@ -13,7 +13,7 @@ class Puck:
 		self.y = screen_height/2 - side_length/2
 
 		self.x_speed = speed
-		self.y_speed = 0
+		self.y_speed = speed * 0.2
 
 		self.side_length = side_length
 
@@ -48,11 +48,21 @@ class Puck:
 		
 		return False
 
-	def change_x_direction(self):
-		self.x_speed = self.x_speed * -1
+	# change direction when puck collides with paddle
+	def change_x_direction(self, direction):
+		if direction == 'left':
+			if self.x_speed > 0:
+				self.x_speed *= -1
+		elif direction == 'right':
+			if self.x_speed < 0:
+				self.x_speed *= -1
+		else:
+			print("Error: invalid direction specified.")
+
+
 
 	def change_y_direction(self):
-		y_speed = y_speed * -1
+		self.y_speed = self.y_speed * -1
 
 
 
