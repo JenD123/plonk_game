@@ -3,6 +3,7 @@ This code is used to make the window for the game, Plonk.
 """
 
 # from pygame.org
+import sys
 import pygame
 from pygame import Color
 from pygame import display, image
@@ -40,3 +41,10 @@ while True:
 	right_paddle.show(screen)
 	# update the screen
 	display.flip()
+
+	# puck changes direction if it collides with left or right paddle
+	if puck.collides_with(left_paddle) or puck.collides_with(right_paddle):
+		print('ayyyyyyy')
+		puck.change_x_direction()
+
+

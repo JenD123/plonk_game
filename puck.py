@@ -28,11 +28,40 @@ class Puck:
 		self.x = self.x + self.x_speed
 		self.y = self.y + self.y_speed
 
+		# puck changes direction when it collides with top or bottom wall
+		if self.y < self.min_y or self.y > self.max_y:
+			self.change_y_direction()
+
 	# update puck position and display on screen
 	def show(self, screen):
 		rectangle = (self.x, self.y, self.side_length, self.side_length)
 		draw.rect(screen, Color('white'), rectangle)
 		self.update()
+
+	def collides_with(self, paddle):
+		# check whether puck collides with paddle
+		if (self.x < (paddle.x + paddle.width) 
+			and (self.x + self.side_length)> paddle.x 
+			and self.y > (paddle.y + paddle.length) 
+			and (self.y + self.side_length) < paddle.y):
+				return True
+		
+		return False
+
+	def change_x_direction(self):
+		x_speed = x_speed * -1
+
+	def change_y_direction(self):
+		y_speed = y_speed * -1
+
+
+
+
+
+
+
+
+
 
 
 
