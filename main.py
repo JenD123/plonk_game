@@ -36,15 +36,12 @@ while True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
-		if event.type == pygame.KEYDOWN:
-			print('keydown')
-			if event.key == pygame.K_DOWN:
-				right_paddle.move_down()
-			if event.key == pygame.K_UP:
-				right_paddle.move_up()
-		if event.type == pygame.KEYUP:
-			print('keyup')
 
+	keys = pygame.key.get_pressed()
+	if keys[pygame.K_DOWN]:
+		right_paddle.move_down()
+	if keys[pygame.K_UP]:
+		right_paddle.move_up()
 
 	# reset the screen to black
 	screen.fill(Color('black'))
