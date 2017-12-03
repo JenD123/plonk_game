@@ -1,3 +1,4 @@
+import math
 import pygame
 from pygame import Color
 from pygame import draw
@@ -15,7 +16,7 @@ class Puck:
 		self.x = screen_width/2 - side_length/2
 		self.y = screen_height/2 - side_length/2
 		
-
+		self.speed = speed
 		self.x_speed = speed
 		self.y_speed = speed * 0.2
 
@@ -51,14 +52,18 @@ class Puck:
 		self.update()
 
 	def collides_with(self, paddle):
-		# check whether puck collides with paddle
+		# return true if puck collides with paddle
+		# if collision occurs, update the x-speed and y-speed
 		if (self.x < (paddle.x + paddle.width) 
 			and (self.x + self.side_length)> paddle.x 
 			and self.y < (paddle.y + paddle.length) 
 			and (self.y + self.side_length) > paddle.y):
 		
-				translate = interp1d([0, paddle.length], [30, 150])
-				# translate(self.y - paddle.y)
+				translate = interp1d([0, paddle.length + self.side_length], [-50, 50])
+				angle = float(translate(self.y - paddle.y + self.side_length))
+				self.x_speed = self.speed * math.cos(math.radians(angle))
+				self.y_speed = self.speed * math.sin(math.radians(angle))
+				print(angle)
 				return True
 		
 		return False
