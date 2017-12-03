@@ -12,7 +12,8 @@ class Puck:
 		self.x = screen_width/2 - side_length/2
 		self.y = screen_height/2 - side_length/2
 
-		self.speed = speed
+		self.x_speed = speed
+		self.y_speed = 0
 
 		self.side_length = side_length
 
@@ -24,7 +25,8 @@ class Puck:
 
 
 	def update(self):
-		pass
+		self.x = self.x + self.x_speed
+		self.y = self.y + self.y_speed
 
 	# update puck position and display on screen
 	def show(self, screen):

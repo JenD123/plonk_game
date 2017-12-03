@@ -20,7 +20,7 @@ screen = display.set_mode(screen_size)
 display.set_caption('Plonk')
 
 # create objects and data parameters
-puck = Puck(width, height, 20, 10)
+puck = Puck(width, height, 1, 10)
 left_paddle = Paddle(30, height, 2, 80)
 right_paddle = Paddle(680, height, 2, 80)
 
