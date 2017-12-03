@@ -19,14 +19,15 @@ class Paddle:
 		self.max_y = screen_height - length
 
 	def move_up(self):
-		y = y - speed
-		if y < min_y:
-			y = min_y
+		self.y = self.y - self.speed
+		if self.y < self.min_y:
+			self.y = self.min_y
 
 	def move_down(self):
-		y = y + speed
-		if y > max_y:
-			y = max_y
+		self.y = self.y + self.speed
+		if self.y > self.max_y:
+			self.y = self.max_y
+
 
 	# display paddle on screen
 	def show(self, screen):
