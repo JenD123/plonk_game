@@ -53,7 +53,7 @@ class Puck:
 
 	def collides_with(self, paddle):
 		# return true if puck collides with paddle
-		# if collision occurs, update the x-speed and y-speed
+		# if collision occurs, update the x-speed and y-speed (to change reflection angle)
 		if (self.x < (paddle.x + paddle.width) 
 			and (self.x + self.side_length)> paddle.x 
 			and self.y < (paddle.y + paddle.length) 
