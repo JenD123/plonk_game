@@ -18,7 +18,9 @@ screen_size = (width, height)
 screen = display.set_mode(screen_size)
 display.set_caption('Plonk')
 
+# create object (different levels) from Gameplay class and pass level details
+game_level1 = Gameplay(screen, puck_speed=4, paddle_speed=2, paddle_length=80)
+game_level1.run()
 
-game = Gameplay(screen)
-game.run()
-
+game_level2 = Gameplay(screen, puck_speed=6, paddle_speed=2, paddle_length=80)
+game_level2.run()

@@ -8,8 +8,13 @@ from paddle import Paddle
 
 class Gameplay:
 
-	def __init__(self, screen):
+	# defines variables for class Gameplay
+	def __init__(self, screen, puck_speed, paddle_speed, paddle_length):
 		self.screen = screen
+		self.puck_speed = puck_speed
+		self.paddle_speed = paddle_speed
+		self.paddle_length = paddle_length
+
 
 	def run(self):
 		
@@ -17,9 +22,9 @@ class Gameplay:
 		height = self.screen.get_rect().height
 
 		# create objects and data parameters
-		puck = Puck(width, height, 4, 10)
-		left_paddle = Paddle(30, height, 2, 80)
-		right_paddle = Paddle(680, height, 2, 80)
+		puck = Puck(width, height, self.puck_speed, 10)
+		left_paddle = Paddle(30, height, self.paddle_speed, self.paddle_length)
+		right_paddle = Paddle(680, height, self.paddle_speed, self.paddle_length)
 
 		clock = pygame.time.Clock()
 		mixer.init()

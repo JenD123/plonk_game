@@ -63,7 +63,6 @@ class Puck:
 				angle = float(translate(self.y - paddle.y + self.side_length))
 				self.x_speed = self.speed * math.cos(math.radians(angle))
 				self.y_speed = self.speed * math.sin(math.radians(angle))
-				print(angle)
 				return True
 		
 		return False
