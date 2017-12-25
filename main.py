@@ -36,7 +36,8 @@ menu = pygameMenu.Menu(
 	screen,
 	window_width=width, 
 	window_height=height, 
-	font=pygameMenu.fonts.FONT_8BIT, 
+	font=pygameMenu.fonts.FONT_MUNRO,
+	font_title=pygameMenu.fonts.FONT_8BIT, 
 	title='Main Menu',
 	menu_color_title=(255, 0, 0),	#(red, green, blue)
 	bgfun=mainmenu_background,
@@ -82,10 +83,7 @@ while True:
     for event in events:
         if event.type == pygame.QUIT:
             exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                if menu.is_disabled():
-                    menu.enable()
+    menu.enable()
     menu.mainloop(events)
 
 # if the user clicks play:
