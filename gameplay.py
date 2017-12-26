@@ -5,6 +5,7 @@ import sys
 
 from puck import Puck
 from paddle import Paddle
+from scoreboard import Scoreboard
 
 
 class Gameplay:
@@ -15,9 +16,12 @@ class Gameplay:
 		self.puck_speed = puck_speed
 		self.paddle_speed = paddle_speed
 		self.paddle_length = paddle_length
+		self.scoreboard = Scoreboard(screen, screen.get_rect().width, screen.get_rect().height)
 
 
 	def run(self):
+
+		self.scoreboard.reset_score()
 		
 		width = self.screen.get_rect().width
 		height = self.screen.get_rect().height
@@ -35,7 +39,15 @@ class Gameplay:
 		game_playing = True
 		while game_playing:
 			clock.tick(60)
-			
+
+			# determine win/lose when either score reaches 11, then stop gameplay
+			if self.scoreboard.left_score > 10:
+				print('left wins')
+				game_playing = False
+			if self.scoreboard.right_score > 10:
+				print('right wins')
+				game_playing = False
+
 			# close application when cross is pressed
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -64,9 +76,10 @@ class Gameplay:
 			# reset the screen to black
 			self.screen.fill(Color('black'))
 			# show objects
-			puck.show(self.screen)
+			puck.show(self.screen, self.scoreboard)
 			left_paddle.show(self.screen)
 			right_paddle.show(self.screen)
+			self.scoreboard.show()
 			# update the screen
 			display.flip()
 

@@ -17,7 +17,7 @@ class Puck:
 		self.y = screen_height/2 - side_length/2
 		
 		self.speed = speed
-		self.x_speed = speed
+		self.x_speed = -1 * speed
 		self.y_speed = speed * 0.2
 
 		self.side_length = side_length
@@ -29,27 +29,30 @@ class Puck:
 		self.max_y = screen_height - side_length
 
 
-	def update(self):
+	def update(self, score):
 		self.x = self.x + self.x_speed
 		self.y = self.y + self.y_speed
 
 		# puck changes direction when it collides with top or bottom wall
 		if self.y < self.min_y or self.y > self.max_y:
 			self.change_y_direction()
-		# puck respawns to centre if puck goes goes past left or right wall
+		# puck respawns to centre if puck goes goes past left or right wall and update score
 		if self.x < self.min_x or self.x > self.max_x:
+			if self.x < self.min_x:
+				score.increment_right()
+			elif self.x > self.max_x:
+				score.increment_left()
+
 			self.x = self.respawn_x
 			self.y = self.respawn_y
 			self.change_x_direction()
 
 
-
-
 	# update puck position and display on screen
-	def show(self, screen):
+	def show(self, screen, score):
 		rectangle = (self.x, self.y, self.side_length, self.side_length)
 		draw.rect(screen, Color('white'), rectangle)
-		self.update()
+		self.update(score)
 
 	def collides_with(self, paddle):
 		# return true if puck collides with paddle
