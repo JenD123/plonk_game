@@ -10,7 +10,6 @@ class Scoreboard:
 		self.screen_height = screen_height
 		self.left_score = 0
 		self.right_score = 0
-		self.font = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 30) # or monospace
 
 	def increment_left(self):
 
@@ -27,7 +26,8 @@ class Scoreboard:
 
 	def show(self):
 
-		scoreboard = self.font.render(
+		myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 30) # or monospace
+		scoreboard = myfont.render(
 			f"{self.left_score} - {self.right_score}", 	#text
 			True, 	#antialias
 			(255, 255, 255), 	#colour
@@ -35,5 +35,26 @@ class Scoreboard:
 		scoreboard_width = scoreboard.get_rect().width
 		scoreboard_height = scoreboard.get_rect().height
 		self.screen.blit(scoreboard, (self.screen_width/2 - scoreboard_width/2, scoreboard_height/2))
+
+	def show_end_state(self):
+
+		myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 60)
+		win_state = myfont.render(
+			'WIN' if self.right_score > 10 else 'LOSE',
+			True,
+			(255, 255, 255),
+		)
+		scoreboard = myfont.render(
+			f'{self.left_score} - {self.right_score}', 	#text
+			True, 	#antialias
+			(255, 255, 255), 	#colour
+		)
+
+		win_state_width = win_state.get_rect().width
+		win_state_height = win_state.get_rect().height
+		scoreboard_width = scoreboard.get_rect().width
+		scoreboard_height = scoreboard.get_rect().height
+		self.screen.blit(win_state, (self.screen_width/2 - win_state_width/2, self.screen_height/2 - scoreboard_height*2))
+		self.screen.blit(scoreboard, (self.screen_width/2 - scoreboard_width/2, self.screen_height/2 - scoreboard_height/2))
 
 

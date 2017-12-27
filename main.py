@@ -116,10 +116,10 @@ menu.add_option('About', about_menu)
 menu.add_option('Settings', settings_menu)
 menu.add_option('Exit', PYGAME_MENU_EXIT) #closes application
 # create object (different levels) from Gameplay class and pass level details
-game_level1 = Gameplay(screen, puck_speed=4, paddle_speed=2, paddle_length=80)
-game_level2 = Gameplay(screen, puck_speed=6, paddle_speed=2, paddle_length=80)
-game_level3 = Gameplay(screen, puck_speed=8, paddle_speed=2, paddle_length=60)
-game_level4 = Gameplay(screen, puck_speed=10, paddle_speed=2, paddle_length=60)
+game_level1 = Gameplay(screen, puck_speed=4, paddle_speed=2, paddle_length=80, level='Easy')
+game_level2 = Gameplay(screen, puck_speed=6, paddle_speed=2, paddle_length=80, level='Medium')
+game_level3 = Gameplay(screen, puck_speed=8, paddle_speed=2, paddle_length=60, level='Hard')
+game_level4 = Gameplay(screen, puck_speed=10, paddle_speed=4, paddle_length=60, level='Expert')
 # add menu options to the Play submenu
 play_menu.add_option('Easy', game_level1.run)
 play_menu.add_option('Medium', game_level2.run)
