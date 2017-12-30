@@ -12,6 +12,7 @@ from pygameMenu.locals import *
 import sys
 
 from gameplay import Gameplay
+from settings import Settings
 
 
 width = 720
@@ -108,6 +109,12 @@ settings_menu = pygameMenu.Menu(
 	bgfun=mainmenu_background,
 )
 
+def sound_effects(is_on):
+	Settings.sound_effects = is_on
+
+def music(is_on):
+	Settings.music = is_on
+
 
 # add menu options to the Main Menu
 menu.add_option('Play', play_menu)
@@ -125,7 +132,25 @@ play_menu.add_option('Easy', game_level1.run)
 play_menu.add_option('Medium', game_level2.run)
 play_menu.add_option('Hard', game_level3.run)
 play_menu.add_option('Expert', game_level4.run)
-
+# add settings selectors
+settings_menu.add_selector(
+	'Sound Effects',	#selector title
+	[
+		('On', True), 	#selector field value
+		('Off', False),	
+	],
+	onchange=sound_effects,
+	onreturn=None
+)
+settings_menu.add_selector(
+	'Music',
+	[
+		('On', True),
+		('Off', False),
+	],
+	onchange=music,
+	onreturn=None
+)
 # add return to menu options to the the submenus
 play_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 about_menu.add_option('Return to Menu', PYGAME_MENU_BACK)

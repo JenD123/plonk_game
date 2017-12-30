@@ -9,6 +9,7 @@ import sys
 from puck import Puck
 from paddle import Paddle
 from scoreboard import Scoreboard
+from settings import Settings
 
 
 class Gameplay:
@@ -38,9 +39,14 @@ class Gameplay:
 		clock = pygame.time.Clock()
 		mixer.init()
 		sound = mixer.Sound('boop_sound.ogg')
+		music = mixer.Sound('8-bit-music.ogg')
+
+		if Settings.music:
+			music.play(loops=-1)
 
 		game_playing = True
 		end_state = False
+		replay = False
 
 		# game loop
 		while game_playing:
@@ -89,10 +95,12 @@ class Gameplay:
 			# puck changes direction if it collides with left or right paddle
 			if puck.collides_with(left_paddle):
 				puck.change_x_direction('right')
-				sound.play()
+				if Settings.sound_effects:
+					sound.play()
 			elif puck.collides_with(right_paddle):
 				puck.change_x_direction('left')
-				sound.play()
+				if Settings.sound_effects:
+					sound.play()
 
 		# certificate screen
 		while end_state:
@@ -132,6 +140,10 @@ class Gameplay:
 						end_state = False
 					if event.key == pygame.K_r:
 						end_state = False
-						self.run()
+						replay = True
 				if event.type == pygame.QUIT:
 					sys.exit()
+		
+		music.stop()
+		if replay:
+			self.run()
