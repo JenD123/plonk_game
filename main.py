@@ -5,7 +5,6 @@ This code is used to make the window for the game, Plonk.
 
 # from pygame.org
 import pygame
-from pygame import Color
 from pygame import display, image, mixer
 import pygameMenu
 from pygameMenu.locals import *
@@ -199,10 +198,7 @@ settings_menu.add_selector(
 )
 settings_menu.add_selector(
 	'Theme',
-	[
-		('Dark', 'dark'),
-		('Light', 'light'),
-	],
+	Theme.get_list_of_themes(),
 	onchange=set_theme,
 	onreturn=None
 )

@@ -1,4 +1,3 @@
-from pygame import Color
 from pygame import draw
 
 from settings import Settings

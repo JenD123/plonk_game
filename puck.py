@@ -1,6 +1,5 @@
 import math
 import pygame
-from pygame import Color
 from pygame import draw
 from scipy.interpolate import interp1d
 
@@ -36,7 +35,7 @@ class Puck:
 		self.y = self.y + self.y_speed
 
 		# puck changes direction when it collides with top or bottom wall
-		if self.y < self.min_y or self.y > self.max_y:
+		if self.y <= self.min_y or self.y >= self.max_y:
 			self.change_y_direction()
 		# puck respawns to centre if puck goes goes past left or right wall and update score
 		if self.x < self.min_x or self.x > self.max_x:
@@ -82,7 +81,6 @@ class Puck:
 				self.x_speed *= -1
 		else:
 			self.x_speed *= -1
-
 
 
 	def change_y_direction(self):

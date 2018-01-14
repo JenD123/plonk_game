@@ -1,5 +1,4 @@
 import pygame
-from pygame import Color
 from pygame import display, mixer
 from pygame import font
 import pygameMenu
