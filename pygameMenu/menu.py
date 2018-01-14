@@ -712,3 +712,21 @@ class Menu(object):
         if self._actual._size == 0:
             return
         self._actual._index = (self._actual._index + 1) % self._actual._size
+
+
+    def set_background_color(self, menu_color):
+        self._bgcolor = (menu_color[0], menu_color[1], menu_color[2],
+                         int(255 * (1 - (100 - _cfg.MENU_ALPHA) / 100.0)))
+
+    def set_font_color(self, font_color):
+        self._font_color = font_color
+        self._title = self._font_title.render(self._title_str, 1, self._font_color)
+    
+    def set_title_tab_color(self, title_color):
+        self._bg_color_title = (   
+            title_color[0], 
+            title_color[1],
+            title_color[2], 
+            int(255 * (1 - (100 - _cfg.MENU_ALPHA) / 100.0))
+        )
+

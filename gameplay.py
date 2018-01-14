@@ -83,7 +83,7 @@ class Gameplay:
 				game_playing = False
 
 			# reset the screen to black
-			self.screen.fill(Color('black'))
+			self.screen.fill(Settings.background_colour)
 			# show objects
 			puck.show(self.screen, self.scoreboard)
 			left_paddle.show(self.screen)
@@ -106,7 +106,7 @@ class Gameplay:
 		while end_state:
 			clock.tick(10)
 			
-			self.screen.fill(Color('black'))
+			self.screen.fill(Settings.background_colour)
 			self.scoreboard.show_end_state()
 
 			# on certificate display instructions to replay or return to menu 
@@ -115,12 +115,12 @@ class Gameplay:
 			level = myotherfont.render(
 				'Level: ' + self.level,
 				True,
-				(255, 255, 255),
-				)
+				Settings.text_colour,
+			)
 			instructions = myfont.render(
 				'press R to replay or ESC to go back',
 				True,
-				(255, 255, 255),
+				Settings.text_colour,
 			)
 			screen_width = self.screen.get_rect().width
 			screen_height = self.screen.get_rect().height

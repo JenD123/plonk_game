@@ -4,6 +4,8 @@ from pygame import Color
 from pygame import draw
 from scipy.interpolate import interp1d
 
+from settings import Settings
+
 class Puck:
 
 	""" Define screen width, height, speed of puck, and side length of te puck 
@@ -51,7 +53,7 @@ class Puck:
 	# update puck position and display on screen
 	def show(self, screen, score):
 		rectangle = (self.x, self.y, self.side_length, self.side_length)
-		draw.rect(screen, Color('white'), rectangle)
+		draw.rect(screen, Settings.text_colour, rectangle)
 		self.update(score)
 
 	def collides_with(self, paddle):

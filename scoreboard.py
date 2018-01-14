@@ -1,6 +1,8 @@
 from pygame import font
 import pygameMenu
 
+from settings import Settings
+
 class Scoreboard:
 
 	def __init__(self, screen, screen_width, screen_height):
@@ -30,7 +32,7 @@ class Scoreboard:
 		scoreboard = myfont.render(
 			f"{self.left_score} - {self.right_score}", 	#text
 			True, 	#antialias
-			(255, 255, 255), 	#colour
+			Settings.text_colour, 	#colour
 		)
 		scoreboard_width = scoreboard.get_rect().width
 		scoreboard_height = scoreboard.get_rect().height
@@ -42,12 +44,12 @@ class Scoreboard:
 		win_state = myfont.render(
 			'WIN' if self.right_score > 10 else 'LOSE',
 			True,
-			(255, 255, 255),
+			Settings.text_colour,
 		)
 		scoreboard = myfont.render(
 			f'{self.left_score} - {self.right_score}', 	#text
 			True, 	#antialias
-			(255, 255, 255), 	#colour
+			Settings.text_colour, 	#colour
 		)
 
 		win_state_width = win_state.get_rect().width

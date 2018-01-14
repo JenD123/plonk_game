@@ -250,3 +250,9 @@ class TextMenu(Menu):
                                     ycoords + dysum)), self._actual._rect_width)
             dy += 1
             dy_index += 1
+
+
+    def set_font_color(self, font_color):
+        self._font_textcolor = font_color
+        self._title = self._font_title.render(self._title_str, 1, self._font_textcolor)
+

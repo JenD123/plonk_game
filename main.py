@@ -12,7 +12,7 @@ from pygameMenu.locals import *
 import sys
 
 from gameplay import Gameplay
-from settings import Settings
+from settings import Settings, Theme
 
 
 width = 720
@@ -27,8 +27,8 @@ display.set_caption('Plonk')
 
 
 def mainmenu_background():
-	# fill the screen black
-	screen.fill((0, 0, 0))
+	# fill the screen
+	screen.fill(Settings.background_colour)
 
 # create Main Menu
 menu = pygameMenu.Menu(
@@ -37,8 +37,11 @@ menu = pygameMenu.Menu(
 	window_height=height, 
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT, 
+	font_color = Settings.text_colour,
+	option_shadow=False,
 	title='Main Menu',
-	menu_color_title=(255, 0, 0),	#(red, green, blue)
+	menu_color_title=Settings.menu_colour,
+	menu_color=Settings.background_colour,
 	bgfun=mainmenu_background,
 )
 
@@ -49,32 +52,52 @@ play_menu = pygameMenu.Menu(
 	window_height= height,
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT,
+	font_color = Settings.text_colour,
+	option_shadow=False,
 	title='Play',
 	onclose=PYGAME_MENU_BACK,	#go back one menu
-	menu_color_title=(255, 0, 0),
+	menu_color_title=Settings.menu_colour,
+	menu_color=Settings.background_colour,
 	bgfun=mainmenu_background,
 )
 
-# create Game Rules submenu
-gamerules_menu = pygameMenu.Menu(
+# create text for the Game Rules textmenu
+GAMERULES = ['Plonk is a simple game where the player moves their', 
+'paddle to hit the puck. To score a point the puck', 
+'must pass the opposing side (the opposition misses', 
+'the puck). The first side to reach 11 points wins.',
+TEXT_NEWLINE,  
+'Use the up and down arrow keys to move the paddle.',  
+]
+
+# create Game Rules textmenu
+gamerules_menu = pygameMenu.TextMenu(
 	screen,
 	window_width=width,
 	window_height=height,
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT,
+	font_color = Settings.text_colour,
+	option_shadow=False,
 	title='Game Rules',
 	onclose=PYGAME_MENU_BACK,
-	menu_color_title=(255, 0, 0),
+	menu_color_title=Settings.menu_colour,
+	menu_color=Settings.background_colour,
 	bgfun=mainmenu_background,
 )
 
+for line in GAMERULES:
+	# add line (from GAMERULES) to the textmenu
+	gamerules_menu.add_line(line)
+#add new line when specified in GAMERULES
+gamerules_menu.add_line(TEXT_NEWLINE)
+
 # create the text for the About textmenu
-ABOUT = ['Plonk v1.0',
+ABOUT = [
+'Plonk v1.0',
 'inspired by Pong',
 'Created by: Jennifer Du',
 'Individual Programming Project 2017-2018',	
-TEXT_NEWLINE,
-'[insert more text if needed here]',
 ]
 
 # create About textmenu
@@ -84,9 +107,12 @@ about_menu = pygameMenu.TextMenu(
 	window_height=height,
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT,
+	font_color = Settings.text_colour,
+	option_shadow=False,
 	title='About',
 	onclose=PYGAME_MENU_BACK,	
-	menu_color_title=(255, 0, 0),
+	menu_color_title=Settings.menu_colour,
+	menu_color=Settings.background_colour,
 	bgfun=mainmenu_background,
 )
 
@@ -103,11 +129,22 @@ settings_menu = pygameMenu.Menu(
 	window_height=height,
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT,
+	font_color = Settings.text_colour,
+	option_shadow=False,
 	title='Settings',
 	onclose=PYGAME_MENU_BACK,
-	menu_color_title=(255, 0, 0),
+	menu_color_title=Settings.menu_colour,
+	menu_color=Settings.background_colour,
 	bgfun=mainmenu_background,
 )
+
+ALL_MENUS = [
+	menu,
+	play_menu,
+	gamerules_menu,
+	about_menu,
+	settings_menu,
+]
 
 def sound_effects(is_on):
 	Settings.sound_effects = is_on
@@ -115,6 +152,15 @@ def sound_effects(is_on):
 def music(is_on):
 	Settings.music = is_on
 
+def set_theme(theme_name):
+	Theme.set_theme(theme_name)
+	try:
+		for menu in ALL_MENUS:
+			menu.set_background_color(Settings.background_colour)
+			menu.set_font_color(Settings.text_colour)
+			menu.set_title_tab_color(Settings.menu_colour)
+	except Exception as error:
+		print(error)
 
 # add menu options to the Main Menu
 menu.add_option('Play', play_menu)
@@ -151,8 +197,19 @@ settings_menu.add_selector(
 	onchange=music,
 	onreturn=None
 )
+settings_menu.add_selector(
+	'Theme',
+	[
+		('Dark', 'dark'),
+		('Light', 'light'),
+	],
+	onchange=set_theme,
+	onreturn=None
+)
+
 # add return to menu options to the the submenus
 play_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
+gamerules_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 about_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 settings_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 

@@ -1,6 +1,8 @@
 from pygame import Color
 from pygame import draw
 
+from settings import Settings
+
 class Paddle:
 	
 	""" Define an x position, screen height, speed of paddle, length of paddle. """
@@ -32,6 +34,6 @@ class Paddle:
 	# display paddle on screen
 	def show(self, screen):
 		rectangle = (self.x, self.y, self.width, self.length)
-		draw.rect(screen, Color('white'), rectangle)
+		draw.rect(screen, Settings.text_colour, rectangle)
 
 
