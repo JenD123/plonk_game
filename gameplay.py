@@ -9,6 +9,7 @@ from puck import Puck
 from paddle import Paddle
 from scoreboard import Scoreboard
 from settings import Settings
+from specials import Wall, Boost, Coin
 
 
 class Gameplay:
@@ -21,6 +22,8 @@ class Gameplay:
 		self.paddle_length = paddle_length
 		self.level = level
 		self.scoreboard = Scoreboard(screen, screen.get_rect().width, screen.get_rect().height)
+
+		self.special = Boost(screen.get_rect().width, screen.get_rect().height)
 
 
 	def run(self):
@@ -87,6 +90,7 @@ class Gameplay:
 			puck.show(self.screen, self.scoreboard)
 			left_paddle.show(self.screen)
 			right_paddle.show(self.screen)
+			self.special.show(self.screen)
 			self.scoreboard.show()
 			# update the screen
 			display.flip()
@@ -100,6 +104,9 @@ class Gameplay:
 				puck.change_x_direction('left')
 				if Settings.sound_effects:
 					sound.play()
+
+			if self.special.collides_with(puck, self.scoreboard):
+				self.special.perform_action(puck, self.scoreboard)
 
 		# certificate screen
 		while end_state:
