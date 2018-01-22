@@ -55,6 +55,11 @@ class Puck:
 			self.x = self.respawn_x
 			self.y = self.respawn_y
 			self.change_x_direction()
+			# change modified puck speed back to original speed when puck respawns
+			if self.is_modified:
+				self.speed = self.original_speed
+				self.recalculate_speed()
+				self.is_modified = False
 
 
 	# update puck position and display on screen
@@ -97,7 +102,7 @@ class Puck:
 		else:
 			self.x_speed *= -1
 
-
+	# change direction when puck collides with wall
 	def change_y_direction(self, direction=None):
 		if direction == 'up':
 			if self.y_speed > 0:
@@ -115,9 +120,9 @@ class Puck:
 		current_x_direction = -1 if (self.x_speed < 0) else 1
 		current_y_direction = -1 if (self.y_speed < 0) else 1
 		self.x_speed = self.speed * math.cos(angle) * current_x_direction
-		self.y_speed = self.speed * math.sin(angle) * current_y_direction
+		self.y_speed = math.fabs(self.speed * math.sin(angle)) * current_y_direction
 
-	# functions for boost special
+	# function for boost special
 	def increase_speed(self):
 		self.is_modified = True
 		if self.speed > 0:

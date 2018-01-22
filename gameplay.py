@@ -23,7 +23,7 @@ class Gameplay:
 		self.level = level
 		self.scoreboard = Scoreboard(screen, screen.get_rect().width, screen.get_rect().height)
 
-		self.special = Boost(screen.get_rect().width, screen.get_rect().height)
+		self.special = Wall(screen.get_rect().width, screen.get_rect().height)
 
 
 	def run(self):

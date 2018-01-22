@@ -11,8 +11,8 @@ class Specials:
 		# define boundaries for special on screen (middle third)
 		self.min_x = screen_width/3
 		self.max_x = screen_width/3 * 2 - special_width
-		self.min_y = 0
-		self.max_y = screen_height - special_width
+		self.min_y = 40
+		self.max_y = screen_height - 40
 
 		self.respawn()
 
@@ -56,8 +56,8 @@ class Wall(Specials):
 class Boost(Specials):
 
 	def __init__(self, screen_width, screen_height):
-		self.length = 80
-		self.width = 40
+		self.length = 15
+		self.width = 15
 		super().__init__(screen_width, screen_height, self.width)
 
 	def perform_action(self, puck, score):
