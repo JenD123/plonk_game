@@ -6,6 +6,9 @@ class Settings:
 	background_colour = (0, 0, 0)
 	text_colour = (255, 255, 255)
 	menu_colour = (255, 0, 0)
+
+	# special can be: WALL, BOOST, COIN, NO_SPECIAL
+	special = 'NO_SPECIAL'
 	
 
 class Theme:

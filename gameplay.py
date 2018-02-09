@@ -9,7 +9,7 @@ from puck import Puck
 from paddle import Paddle
 from scoreboard import Scoreboard
 from settings import Settings
-from specials import Wall, Boost, Coin
+from specials import Wall, Boost, Coin, NoSpecial
 
 
 class Gameplay:
@@ -22,9 +22,6 @@ class Gameplay:
 		self.paddle_length = paddle_length
 		self.level = level
 		self.scoreboard = Scoreboard(screen, screen.get_rect().width, screen.get_rect().height)
-
-		self.special = Wall(screen.get_rect().width, screen.get_rect().height)
-
 
 	def run(self):
 
@@ -45,6 +42,16 @@ class Gameplay:
 
 		if Settings.music:
 			music.play(loops=-1)
+
+		if Settings.special == 'WALL':
+			self.special = Wall(self.screen.get_rect().width, self.screen.get_rect().height)
+		elif Settings.special == 'BOOST':
+			self.special = Boost(self.screen.get_rect().width, self.screen.get_rect().height)
+		elif Settings.special == 'COIN':
+			self.special = Coin(self.screen.get_rect().width, self.screen.get_rect().height)
+		else:
+			self.special = NoSpecial(self.screen.get_rect().width, self.screen.get_rect().height)
+
 
 		game_playing = True
 		end_state = False
@@ -119,7 +126,7 @@ class Gameplay:
 			myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 20)
 			myotherfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 30)
 			level = myotherfont.render(
-				'Level: ' + self.level,
+				'Level: ' + self.level + ' (' + str(self.special) + ')',
 				True,
 				Settings.text_colour,
 			)

@@ -51,7 +51,7 @@ play_menu = pygameMenu.Menu(
 	window_height= height,
 	font=pygameMenu.fonts.FONT_MUNRO,
 	font_title=pygameMenu.fonts.FONT_8BIT,
-	font_color = Settings.text_colour,
+	font_color=Settings.text_colour,
 	option_shadow=False,
 	title='Play',
 	onclose=PYGAME_MENU_BACK,	#go back one menu
@@ -151,6 +151,9 @@ def sound_effects(is_on):
 def music(is_on):
 	Settings.music = is_on
 
+def set_special(mode):
+	Settings.special = mode
+
 def set_theme(theme_name):
 	Theme.set_theme(theme_name)
 	try:
@@ -172,11 +175,23 @@ game_level1 = Gameplay(screen, puck_speed=4, paddle_speed=2, paddle_length=80, l
 game_level2 = Gameplay(screen, puck_speed=6, paddle_speed=2, paddle_length=80, level='Medium')
 game_level3 = Gameplay(screen, puck_speed=8, paddle_speed=2, paddle_length=60, level='Hard')
 game_level4 = Gameplay(screen, puck_speed=10, paddle_speed=4, paddle_length=60, level='Expert')
-# add menu options to the Play submenu
+# add mode selector and level options to Play submenu
+play_menu.add_selector(
+	'Mode',
+	[
+		('Normal', 'NO_SPECIAL'),
+		('Wall', 'WALL'),
+		('Boost', 'BOOST'),
+		('Coin', 'COIN'),
+	],
+	onchange=set_special,
+	onreturn=None
+)
 play_menu.add_option('Easy', game_level1.run)
 play_menu.add_option('Medium', game_level2.run)
 play_menu.add_option('Hard', game_level3.run)
 play_menu.add_option('Expert', game_level4.run)
+
 # add settings selectors
 settings_menu.add_selector(
 	'Sound Effects',	#selector title
@@ -184,7 +199,7 @@ settings_menu.add_selector(
 		('On', True), 	#selector field value
 		('Off', False),	
 	],
-	onchange=sound_effects,
+	onchange=sound_effects, # function (above)
 	onreturn=None
 )
 settings_menu.add_selector(

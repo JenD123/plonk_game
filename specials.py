@@ -48,6 +48,9 @@ class Wall(Specials):
 		self.width =  5
 		super().__init__(screen_width, screen_height, self.width)
 
+	def __str__(self):
+		return 'Wall'
+
 	def perform_action(self, puck, score):
 		puck.change_x_direction()
 		self.respawn()
@@ -60,6 +63,9 @@ class Boost(Specials):
 		self.width = 15
 		super().__init__(screen_width, screen_height, self.width)
 
+	def __str__(self):
+		return 'Boost'
+
 	def perform_action(self, puck, score):
 		puck.increase_speed()
 		self.respawn()
@@ -70,7 +76,10 @@ class Coin(Specials):
 	def __init__(self, screen_width, screen_height):
 		self.length = 15
 		self.width = 15
-		super().__init__(screen_width, screen_height, self.width)	
+		super().__init__(screen_width, screen_height, self.width)
+
+	def __str__(self):
+		return 'Coin' 	
 
 	def perform_action(self, puck, score):
 		if puck.x_speed > 0:
@@ -81,3 +90,23 @@ class Coin(Specials):
 			score.increment_right()
 		self.respawn()
 
+
+class NoSpecial(Specials):
+
+	def __init__(self, screen_width, screen_height):
+		pass
+
+	def __str__(self):
+		return 'Normal'
+
+	def respawn(self):
+		pass
+
+	def show(self, screen):
+		pass
+
+	def perform_action(self, puck, score):
+		pass
+
+	def collides_with(self, puck, score):
+		pass
