@@ -11,6 +11,7 @@ from pygameMenu.locals import *
 import sys
 
 from gameplay import Gameplay
+from gamerules import GameRules
 from settings import Settings, Theme
 
 
@@ -60,36 +61,7 @@ play_menu = pygameMenu.Menu(
 	bgfun=mainmenu_background,
 )
 
-# create text for the Game Rules textmenu
-GAMERULES = ['Plonk is a simple game where the player moves their', 
-'paddle to hit the puck. To score a point the puck', 
-'must pass the opposing side (the opposition misses', 
-'the puck). The first side to reach 11 points wins.',
-TEXT_NEWLINE,  
-'Use the up and down arrow keys to move the paddle.',  
-]
-
-# create Game Rules textmenu
-gamerules_menu = pygameMenu.TextMenu(
-	screen,
-	window_width=width,
-	window_height=height,
-	font=pygameMenu.fonts.FONT_MUNRO,
-	font_title=pygameMenu.fonts.FONT_8BIT,
-	font_color = Settings.text_colour,
-	option_shadow=False,
-	title='Game Rules',
-	onclose=PYGAME_MENU_BACK,
-	menu_color_title=Settings.menu_colour,
-	menu_color=Settings.background_colour,
-	bgfun=mainmenu_background,
-)
-
-for line in GAMERULES:
-	# add line (from GAMERULES) to the textmenu
-	gamerules_menu.add_line(line)
-#add new line when specified in GAMERULES
-gamerules_menu.add_line(TEXT_NEWLINE)
+gamerules_menu = GameRules(screen)
 
 # create the text for the About textmenu
 ABOUT = [
@@ -140,7 +112,7 @@ settings_menu = pygameMenu.Menu(
 ALL_MENUS = [
 	menu,
 	play_menu,
-	gamerules_menu,
+	# does not include custom gameplay_menu
 	about_menu,
 	settings_menu,
 ]
@@ -166,7 +138,7 @@ def set_theme(theme_name):
 
 # add menu options to the Main Menu
 menu.add_option('Play', play_menu)
-menu.add_option('Game Rules', gamerules_menu)
+menu.add_option('Game Rules', gamerules_menu.run)
 menu.add_option('About', about_menu)
 menu.add_option('Settings', settings_menu)
 menu.add_option('Exit', PYGAME_MENU_EXIT) #closes application
@@ -220,7 +192,6 @@ settings_menu.add_selector(
 
 # add return to menu options to the the submenus
 play_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
-gamerules_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 about_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 settings_menu.add_option('Return to Menu', PYGAME_MENU_BACK)
 

@@ -28,7 +28,7 @@ class Scoreboard:
 
 	def show(self):
 
-		myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 30) # or monospace
+		myfont = font.Font(pygameMenu.fonts.FONT_MUNRO, 30) # or monospace
 		scoreboard = myfont.render(
 			f"{self.left_score} - {self.right_score}", 	#text
 			True, 	#antialias
@@ -40,7 +40,7 @@ class Scoreboard:
 
 	def show_end_state(self):
 
-		myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 60)
+		myfont = font.Font(pygameMenu.fonts.FONT_MUNRO, 60)
 		win_state = myfont.render(
 			'WIN' if self.right_score > 10 else 'LOSE',
 			True,

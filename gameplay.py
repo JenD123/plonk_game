@@ -123,14 +123,14 @@ class Gameplay:
 			self.scoreboard.show_end_state()
 
 			# on certificate display instructions to replay or return to menu 
-			myfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 20)
-			myotherfont = font.SysFont(pygameMenu.fonts.FONT_MUNRO, 30)
-			level = myotherfont.render(
+			font_small = font.Font(pygameMenu.fonts.FONT_MUNRO, 20)
+			font_large = font.Font(pygameMenu.fonts.FONT_MUNRO, 30)
+			level = font_large.render(
 				'Level: ' + self.level + ' (' + str(self.special) + ')',
 				True,
 				Settings.text_colour,
 			)
-			instructions = myfont.render(
+			instructions = font_small.render(
 				'press R to replay or ESC to go back',
 				True,
 				Settings.text_colour,
