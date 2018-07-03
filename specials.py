@@ -24,7 +24,7 @@ class Specials:
 	# display special on screen
 	def show(self, screen):
 		rectangle = (self.x, self.y, self.width, self.length)
-		draw.rect(screen, Settings.text_colour, rectangle)
+		draw.rect(screen, Settings.menu_colour, rectangle)
 
 	def perform_action(self, puck, score):
 		pass
