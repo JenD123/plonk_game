@@ -8,9 +8,9 @@ from settings import Settings
 PAGES = [
 	'Move your paddle with the UP and DOWN arrow keys.',
 	'Score a point by hitting the puck past the opponent '
-		'on the right side of the screen. Your opponent can '
+		'on the left side of the screen. Your opponent can '
 		'score a point if they hit the puck past your paddle '
-		'to the left side of the screen.',
+		'to the right side of the screen.',
 	'First to 11 points wins!',
 	'WALLS will deflect the puck.',
 	'BOOST PADS pads will increase the speed of the puck temporarily.',
